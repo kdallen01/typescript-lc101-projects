@@ -9,41 +9,42 @@ var Rocket = /** @class */ (function () {
         this.totalCapacityKg = totalCapacityKg;
     }
     Rocket.prototype.sumMass = function (items) {
+        var sumMassKg = 0;
         for (var i = 0; i < items.length; i++) {
-            var sumMassKg = void 0;
-            sumMassKg = items[i].massKg + sumMassKg;
-            console.log(sumMassKg);
-            return sumMassKg;
+            sumMassKg += items[i].massKg;
         }
+        return sumMassKg;
     };
     Rocket.prototype.currentMassKg = function () {
-        //let currentMass: number;
-        //currentMass = this.sumMass;
-        return sumMassKg;
-        //return currentMass;
+        var currentMassKg;
+        currentMassKg = this.sumMass(this.astronauts) + this.sumMass(this.cargoItems);
+        return currentMassKg;
     };
     Rocket.prototype.canAdd = function (item) {
-        if (this.currentMassKg + item.massKg <= this.totalCapacityKg) {
+        if (this.currentMassKg() + item.massKg <= this.totalCapacityKg) {
             return true;
         }
-        else
+        else {
             return false;
+        }
     };
     Rocket.prototype.addCargo = function (cargo) {
         if (this.canAdd(cargo) === true) {
-            this.cargoItems.push(cargo.material);
+            this.cargoItems.push(cargo);
             return true;
         }
-        else
+        else {
             return false;
+        }
     };
     Rocket.prototype.addAstronaut = function (astronaut) {
         if (this.canAdd(astronaut) === true) {
-            this.astronauts.push(astronaut.name);
+            this.astronauts.push(astronaut);
             return true;
         }
-        else
+        else {
             return false;
+        }
     };
     return Rocket;
 }());
